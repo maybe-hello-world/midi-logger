@@ -46,7 +46,7 @@ Example:
 ```
 
 You can write the notes in the prepared ABC template:
-```
+
 ```music-abc
 X:1
 T:Example
