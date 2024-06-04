@@ -10,6 +10,12 @@ This is a plugin that uses the Web MIDI API to listen to MIDI messages and inser
 4. Open a new or existing document and put the cursor in the editor.
 5. Play some notes on your MIDI device. You should see the notes being inserted into the editor.
 
+## Commands
+
+- `Enable MIDI Logger`: Enables the MIDI Logger.
+- `Disable MIDI Logger`: Disables the MIDI Logger.
+- `Insert ABC template`: Inserts an ABC template into the editor.
+
 ## Settings
 
 - `Separator`: The character used to separate the notes. Valid only for the `Raw message` and `Scientific` output formats.  
