@@ -1,6 +1,12 @@
 # MIDI Logger
 
-This is a plugin that uses the Web MIDI API to listen to MIDI messages and insert parsed pressed notes into the editor.
+This is a plugin that uses the Web MIDI API to listen to MIDI messages and insert parsed pressed notes into the editor
+
+## Demo
+
+![MIDI Logger demo](./resources/demo.gif)
+
+[ABC Music Notation](https://github.com/abcjs-music/obsidian-plugin-abcjs) plugin is used to render the inserted notes.
 
 ## How to use
 
