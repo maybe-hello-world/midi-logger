@@ -3,7 +3,7 @@
 	"name": "MIDI Logger",
 	"version": "0.1.0",
 	"minAppVersion": "1.0.0",
-	"description": "Log musical notes from MIDI input devices.",
+	"description": "Insert parsed musical notes from MIDI input devices.",
 	"author": "@maybehelloworld",
 	"authorUrl": "https://github.com/maybe-hello-world",
 	"isDesktopOnly": false
