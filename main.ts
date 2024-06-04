@@ -1,4 +1,4 @@
-import { MarkdownView, Notice, Plugin, App, PluginSettingTab, Setting } from 'obsidian';
+import { MarkdownView, Notice, Plugin, App, PluginSettingTab, Setting, Editor } from 'obsidian';
 import { rawFormatter, scientificFormatter, ABCFormatter } from "./formatters";
 
 enum ExportType {
@@ -122,6 +122,30 @@ export default class MIDILogger extends Plugin {
 					return true
 				}
 				return false;
+			},
+		  });
+
+		  this.addCommand({
+			id: 'insert-abc-template',
+			name: 'Insert ABC template',
+			editorCallback: (_editor: Editor, view: MarkdownView) => {
+				const ABC_TEMPLATE = [
+					'```music-abc',
+					'X:1',
+					'T:Title',
+					'M:4/4',
+					'Q:1/4=90',
+					'K:none',
+					'',
+					'```',
+				].join('\n');
+
+
+				if (view) {
+					const cursor = view.editor.getCursor();
+					view.editor.replaceRange(ABC_TEMPLATE, cursor);
+					view.editor.setCursor(cursor.line, cursor.ch + ABC_TEMPLATE.length);
+				}
 			},
 		  });
 
