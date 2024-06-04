@@ -56,3 +56,5 @@ K:none
 g8 ^f4 b4 e8 |
 d4 g4 c8 | B4 e4 A8 | d8
 ```
+
+Works with the ABC Music Notation plugin.
