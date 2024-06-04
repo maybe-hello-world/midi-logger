@@ -16,6 +16,8 @@ This is a plugin that uses the Web MIDI API to listen to MIDI messages and inser
 4. Open a new or existing document and put the cursor in the editor.
 5. Play some notes on your MIDI device. You should see the notes being inserted into the editor.
 
+Works on Windows, Linux, and MacOS. Doesn't work on IOS (until Apple implements Web MIDI API in Safari). Not tested on Android.
+
 ## Commands
 
 - `Enable MIDI Logger`: Enables the MIDI Logger.
