@@ -1,7 +1,21 @@
-import { MarkdownView, Notice, Plugin } from 'obsidian';
+import { MarkdownView, Notice, Plugin, App, PluginSettingTab, Setting } from 'obsidian';
+import { rawFormatter, scientificFormatter, ABCFormatter } from "./formatters";
 
-interface MIDILoggerSettings {}
-const DEFAULT_SETTINGS: MIDILoggerSettings = {}
+enum ExportType {
+	RawMessage = 'raw',
+	Scientific = 'scientific',
+	ABC = 'abc',
+}
+
+interface MIDILoggerSettings {
+	exportType: ExportType;
+	separator: string;
+}
+
+const DEFAULT_SETTINGS: MIDILoggerSettings = {
+	exportType: ExportType.Scientific,
+	separator: ',',
+};
 
 export default class MIDILogger extends Plugin {
 	settings: MIDILoggerSettings;
@@ -10,10 +24,18 @@ export default class MIDILogger extends Plugin {
 	midiAccess: WebMidi.MIDIAccess;
 
 	writeNoteToEditor(note: number) {
-		const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-		const noteName = noteNames[note % 12];
-		const octave = Math.floor(note / 12) - 1;
-		const noteString = `${noteName}${octave},`;
+		let noteString = '<UNKNOWN_FORMAT>';
+		switch (this.settings.exportType) {
+			case ExportType.RawMessage:
+				noteString = rawFormatter.format(note, this.settings.separator);
+				break;
+			case ExportType.Scientific:
+				noteString = scientificFormatter.format(note, this.settings.separator);
+				break;
+			case ExportType.ABC:
+				noteString = ABCFormatter.format(note, this.settings.separator);
+				break;
+		}
 
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 		if (view) {
@@ -102,6 +124,8 @@ export default class MIDILogger extends Plugin {
 				return false;
 			},
 		  });
+
+		  this.addSettingTab(new MIDILoggerSettingTab(this.app, this));
 	}
 
 	onunload() {
@@ -116,5 +140,45 @@ export default class MIDILogger extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+	}
+}
+
+class MIDILoggerSettingTab extends PluginSettingTab {
+	plugin: MIDILogger;
+
+	constructor(app: App, plugin: MIDILogger) {
+		super(app, plugin);
+		this.plugin = plugin;
+	}
+
+	display(): void {
+		const {containerEl} = this;
+
+		containerEl.empty();
+
+		new Setting(containerEl)
+			.setName('Output format')
+			.setDesc('Choose the format of the MIDI note to be written to the editor')
+			.addDropdown(dropdown => dropdown
+				.addOptions({
+					[ExportType.RawMessage]: 'Raw message',
+					[ExportType.Scientific]: 'Scientific',
+					[ExportType.ABC]: 'ABC',
+				})
+				.setValue(this.plugin.settings.exportType)
+				.onChange(async (value) => {
+					this.plugin.settings.exportType = value as ExportType;
+					await this.plugin.saveSettings();
+				}));
+		
+		new Setting(containerEl)
+			.setName('Separator')
+			.setDesc('Separator between notes (only for raw and scientific formats)')
+			.addText(text => text
+				.setValue(this.plugin.settings.separator)
+				.onChange(async (value) => {
+					this.plugin.settings.separator = value;
+					await this.plugin.saveSettings();
+				}));
 	}
 }
