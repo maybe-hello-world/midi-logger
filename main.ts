@@ -99,7 +99,7 @@ export default class MIDILogger extends Plugin {
 
 		this.addCommand({
 			id: "enable",
-			name: "Enable MIDI Logger",
+			name: "Start capture",
 			checkCallback: (checking: boolean) => {
 				if (!this.enabled) {
 					if (!checking) {
@@ -113,7 +113,7 @@ export default class MIDILogger extends Plugin {
 
 		this.addCommand({
 			id: "disable",
-			name: "Disable MIDI Logger",
+			name: "Stop capture",
 			checkCallback: (checking: boolean) => {
 				if (this.enabled) {
 					if (!checking) {

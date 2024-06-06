@@ -12,7 +12,7 @@ This is a plugin that uses the Web MIDI API to listen to MIDI messages and inser
 
 1. Install and enable the plugin.
 2. Connect a MIDI device to your computer.
-3. Press the ribbon icon in the toolbar (music note icon) to enable the MIDI Logger or use the `Enable MIDI Logger` command.
+3. Press the ribbon icon in the toolbar (music note icon) to start capture process or use the `Start capture` command.
 4. Open a new or existing document and put the cursor in the editor.
 5. Play some notes on your MIDI device. You should see the notes being inserted into the editor.
 
@@ -20,8 +20,8 @@ Works on Windows, Linux, and MacOS. Doesn't work on IOS (until Apple implements 
 
 ## Commands
 
-- `Enable MIDI Logger`: Enables the MIDI Logger.
-- `Disable MIDI Logger`: Disables the MIDI Logger.
+- `Start capture`: Starts the MIDI capture process.
+- `Stop capture`: Stops the MIDI capture process.
 - `Insert ABC template`: Inserts an ABC template into the editor.
 
 ## Settings
